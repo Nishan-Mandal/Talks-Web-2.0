@@ -8,7 +8,8 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: "/Talks-Web-2.0/",
     },
     watch: true,
     resolve: {

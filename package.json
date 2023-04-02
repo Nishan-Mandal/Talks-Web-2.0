@@ -4,10 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "webpack --mode=development",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +16,12 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "gh-pages": "^5.0.0",
     "webpack": "^5.76.2",
     "webpack-cli": "^5.0.1"
+  },
+  "repository": {
+    "url": "https://github.com/Nishan-Mandal/Talks-Web-2.0.git"
   },
   "description": ""
 }

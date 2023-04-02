@@ -2,7 +2,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, updateDoc, setDoc, doc, serverTimestamp, arrayUnion, query, where, getDoc, getDocs, deleteDoc, onSnapshot } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid"
-import { debug } from "webpack";
 import { Chatroom } from './chat';
 
 const uid = uuidV4();
