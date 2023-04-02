@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Basic Video Call -- Agora</title>
+  <link rel="stylesheet" href="../vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="../index.css">
+</head>
+<body style="background-color: rgb(221, 219, 219);">
+
+  <div id="banner"> <p id="banner-text"><strong>Talks</strong></p></div>
+  <div id="remote-playerlist"></div>
+  <div id="local-player" class="player"></div>
+
+  
+  <div id="chatting-view">
+    <ul id="message-list" class="chat-list list-group"></ul>
+  </div>
+  <div id="bottom-chatting-view"></div>
+  
+  <input type="text" id="text-box" placeholder="Type something..">
+    
+  <button id="send" type="button" class="btn btn-primary btn-sm">Send</button>
+  <button id="join" type="button" class="btn btn-primary" value="Join">Join</button>
+
+  <div id="loader1"></div>
+  <div id="loader2"></div>
+
+    
+  <script src="../vendor/jquery-3.4.1.min.js"></script>
+  <script src="../vendor/bootstrap.bundle.min.js"></script>
+  <script src="../AgoraRTC_N-4.16.1.js"></script>
+  <script src="bundle.js"></script>
+  
+
+</body>
+</html>
