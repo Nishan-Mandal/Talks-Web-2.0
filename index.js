@@ -331,7 +331,7 @@ window.onbeforeunload = function(){
   return true;
 };
 window.onunload = function() {
-  onLeaveOrCloseWindow();
+  onLeaveOrCloseWindow(joinCode);
 }
 window.onload = function() {
   var flagJoinCode = localStorage.getItem("joinCode");

@@ -26,6 +26,9 @@
     border-radius: 15px;
     overflow: hidden;
     perspective: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center
   }
   
   #remote-playerlist {
@@ -37,6 +40,9 @@
     width: 68.3vw;
     background-color: white;
     border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center
   }
 
   #chatting-view {
@@ -144,9 +150,6 @@
     width: 100px;
     height: 100px;
     animation: spin 2s linear infinite;
-    position: absolute;
-    left: 30vw;
-    top: 40vh;
   }
   
   .loader2 {
@@ -156,9 +159,6 @@
     width: 50px;
     height: 50px;
     animation: spin 2s linear infinite;
-    position: absolute;
-    right: 39vw;
-    bottom: 21vh;
   }
   
   @keyframes spin {
@@ -236,6 +236,9 @@
     background-color: rgb(155, 150, 150);
     border-radius: 15px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center
   }
   
   #remote-playerlist {
@@ -247,18 +250,21 @@
     width: 96vw;
     background-color: white;
     border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center
   }
 
   #chatting-view {
     position: absolute;
-    top: 69vh;
+    bottom: 11vh;
     margin-left: 2.2%;
     margin-right: 2.2%;
     height: 20%;
     width: 96%;
     overflow-x:hidden; 
     overflow-y:auto; 
-    background-color: white;
+    background-color: red;
     border-radius: 15px 15px 0px 0px ;
     display: flex;
     flex-direction: column-reverse;
@@ -347,9 +353,6 @@
     width: 70px;
     height: 70px;
     animation: spin 2s linear infinite;
-    position: absolute;
-    left: 40vw;
-    top: 30vh;
   }
   
   .loader2 {
@@ -359,9 +362,6 @@
     width: 30px;
     height: 30px;
     animation: spin 2s linear infinite;
-    position: absolute;
-    top: 100vw;
-    right: 16vw;
   }
   
   @keyframes spin {
