@@ -45,6 +45,12 @@
     justify-content: center
   }
 
+  #div-chat {
+    position: absolute; 
+    width: 100vw; 
+    height: 100%;
+  }
+
   #chatting-view {
     position: absolute;
     top: 1vh;
@@ -65,19 +71,19 @@
     position: absolute;
     bottom: 1vh;
     margin-left: 69.4%;
+    padding-top: 1%;
     height: 13%;
     width: 29.9%;
-    padding-left: 1vh;
     background-color: white;
     border-radius: 0px 0px 15px 15px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
   }
   
   #text-box {
-    position: absolute;
-    bottom: 2%;
-    margin-left: 70%;
-    height: 5.2vw;
-    width: 23vw;
+    height: 5.1vw;
+    width: 60%;
     border-radius: 15px;
     background-color: rgb(221, 219, 220);
   }
@@ -88,16 +94,10 @@
     color: white;
     text-align: center;
     font-size: 1vw;
-    text-decoration: none;
-    display: inline-block;
-    position: absolute;
-    bottom: 1%;
-    margin-left: 0.6%;
     border-radius: 15px;
-    width: 10%;
-    height: 9%;
+    height: 5.1vw;
+    width: 5.1vw;
   }
-  
   
   #send {
     background-color: rgb(45, 202, 207); 
@@ -108,10 +108,7 @@
     font-size: 1vw;
     height: 5.1vw;
     width: 5.1vw;
-    position: absolute;
-    margin-left: 93.5%;
     border-radius: 15px;
-    bottom: 2.3%;
   }
 
   
@@ -187,14 +184,7 @@
   
   .player {
     height: 77vh;
-    /* width: 68.3vw; */
-    /* border-radius: 20px; */
   }
-  
-  /* .player-name {
-    margin: 8px 0;
-  } */
-  
   #success-alert, #success-alert-with-token {
     display: none;
   }
@@ -202,8 +192,6 @@
   @media (max-width: 640px) {
     .player {
       height: 77vh;
-      /* width: 68.3vw; */
-      /* border-radius: 20px; */
     }
   }
 }
@@ -233,7 +221,7 @@
     right: 3vh;
     height: 18%;
     width: 29%;
-    background-color: rgb(155, 150, 150);
+    background-color: rgb(221, 219, 220);
     border-radius: 15px;
     overflow: hidden;
     display: flex;
@@ -254,32 +242,39 @@
     align-items: center;
     justify-content: center
   }
+  
+  #div-chat {
+    position: absolute; 
+    top: 69%; 
+    width: 100vw; 
+    height: 100%;
+  }
 
   #chatting-view {
-    position: absolute;
-    bottom: 11vh;
     margin-left: 2.2%;
     margin-right: 2.2%;
     height: 20%;
     width: 96%;
     overflow-x:hidden; 
     overflow-y:auto; 
-    background-color: red;
+    background-color: white;
     border-radius: 15px 15px 0px 0px ;
     display: flex;
     flex-direction: column-reverse;
   }
 
   #bottom-chatting-view {
-    position: absolute;
-    bottom: 1vh;
     height: 10%;
     margin-left: 2.2%;
     margin-right: 2.2%;
     width: 96%;
     padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 1vh;
     background-color: white;
     border-radius: 0px 0px 15px 15px;
+    display: flex;
+    justify-content: space-evenly;
   }
 
   #join {
@@ -289,11 +284,8 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    position: absolute;
-    bottom: 2%;
-    margin-left: 3.5%;
     border-radius: 15px;
-    height: 8%;
+    height: 85%;
     width: 15%;
   }
   
@@ -304,19 +296,14 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    position: absolute;
-    bottom: 2%;
-    right: 4%;
-    height: 8%;
+    height: 85%;
     width: 15%;
     border-radius: 15px;
   }
 
   #text-box {
-    position: absolute;
-    bottom: 2%;
-    height: 8%;
-    width: 60%;
+    max-height: 85%;
+    width: 65%;
     left: 20%;
     border-radius: 15px;
     background-color: rgb(221, 219, 219);
