@@ -211,7 +211,7 @@
 
   #local-player {
     position: absolute;
-    top: 48vh;
+    bottom: 33%;
     right: 3vh;
     height: 18%;
     width: 29%;
@@ -228,7 +228,7 @@
     bottom: 32%;
     margin-left: 2.2%;
     margin-right: 2.2%;
-    height: 60vh;
+    height: 55vh;
     width: 96vw;
     background-color: white;
     border-radius: 15px;
