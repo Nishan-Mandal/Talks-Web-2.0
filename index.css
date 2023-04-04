@@ -45,12 +45,6 @@
     justify-content: center
   }
 
-  #div-chat {
-    position: absolute; 
-    width: 100vw; 
-    height: 100%;
-  }
-
   #chatting-view {
     position: absolute;
     top: 1vh;
@@ -242,15 +236,10 @@
     align-items: center;
     justify-content: center
   }
-  
-  #div-chat {
-    position: absolute; 
-    top: 69%; 
-    width: 100vw; 
-    height: 100%;
-  }
 
   #chatting-view {
+    position: absolute;
+    bottom: 11%;
     margin-left: 2.2%;
     margin-right: 2.2%;
     height: 20%;
@@ -264,6 +253,8 @@
   }
 
   #bottom-chatting-view {
+    position: absolute;
+    bottom: 1%;
     height: 10%;
     margin-left: 2.2%;
     margin-right: 2.2%;
