@@ -225,7 +225,7 @@
   
   #remote-playerlist {
     position: absolute;
-    top: 8vh;
+    bottom: 32%;
     margin-left: 2.2%;
     margin-right: 2.2%;
     height: 60vh;
