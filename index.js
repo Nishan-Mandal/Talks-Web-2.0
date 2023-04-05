@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, updateDoc, setDoc, doc, serverTimestamp, arrayUnion, query, where, getDoc, getDocs, deleteDoc, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, updateDoc, setDoc, doc, serverTimestamp, arrayUnion, query, where, getDoc, getDocs, deleteDoc, onSnapshot, orderBy } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid"
 import { Chatroom } from './chat';
 
@@ -84,7 +84,8 @@ $("#join").click(async function (e) {
         await updateDoc(docRef, {
           searching: true,
           messageCode: null,
-          request: []
+          request: [],
+          timeStamp: serverTimestamp()
         });
       }
     } else {
@@ -129,14 +130,11 @@ async function leave() {
       localTracks[trackName] = undefined;
     }
   }
-
   // remove remote users and player views
   remoteUsers = {};
   $("#remote-playerlist").html("");
-
   // leave the channel
   await client.leave();
-
   $("#local-player-name").text("");
   $("#join").attr("disabled", false);
   $("#leave").attr("disabled", true);
@@ -149,10 +147,10 @@ async function subscribe(user, mediaType) {
   await client.subscribe(user, mediaType);
   console.log("subscribe success");
   if (mediaType === 'video') {
-    var player;
+    var player;                                 
     if(window.screen.width < 800){
        player = $(`
-      <div style="height: 60vh; width: 96vw; border-radius: 15px; overflow: hidden; perspective: 1px;" id="player-${uid}" class="player"></div>
+      <div style="height: 55vh; width: 96vw; border-radius: 15px; overflow: hidden; perspective: 1px;" id="player-${uid}" class="player"></div>
     `);
     }
     else{
@@ -199,7 +197,7 @@ function changeJoinButtonText() {
 async function joinVideo(displayName, usersGender, searchForWhome) {
   loaderStart();
   var tempJoinCode;
-  const q = query(collection(db, "videoCallsUsers-online"), where("searchForWhome", "array-contains", "random"), where("searching", "==", true));
+  const q = query(collection(db, "videoCallsUsers-online"), where("searchForWhome", "array-contains", "random"), where("searching", "==", true), orderBy("timeStamp","desc"));
 
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
@@ -327,18 +325,20 @@ function loaderStop(){
 }
 
 window.onbeforeunload = function(){
-  localStorage.setItem("joinCode", joinCode);
-  return true;
-};
-window.onunload = function() {
   onLeaveOrCloseWindow(joinCode);
-}
-window.onload = function() {
-  var flagJoinCode = localStorage.getItem("joinCode");
-  if (flagJoinCode != undefined){
-    onLeaveOrCloseWindow(flagJoinCode);
-  }
-}
+  // localStorage.setItem("joinCode", joinCode);
+  return "Leave?";
+};
+
+// window.onunload = function() {
+//   onLeaveOrCloseWindow(joinCode);
+// }
+// window.onload = function() {
+//   var flagJoinCode = localStorage.getItem("joinCode");
+//   if (flagJoinCode != undefined){
+//     onLeaveOrCloseWindow(flagJoinCode);
+//   }
+// }
 
 async function onLeaveOrCloseWindow(docId){
   const docRef = doc(db, "videoCallsUsers-online", docId);
