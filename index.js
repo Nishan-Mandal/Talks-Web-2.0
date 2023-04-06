@@ -73,12 +73,17 @@ $("#join").click(async function (e) {
   }
   else {
     leave();
-    const docRef = doc(db, "videoCallsUsers-online", joinCode);
+    preLeave(joinCode);
+  }
+})
+
+async function preLeave(joinCodeId){
+  const docRef = doc(db, "videoCallsUsers-online", joinCodeId);
     const reqSnap = await getDoc(docRef);
     if (reqSnap.exists()) {
       var docSearching = reqSnap.data().searching;
       if(docSearching===true){
-        await deleteDoc(doc(db, "videoCallsUsers-online", joinCode));
+        await deleteDoc(doc(db, "videoCallsUsers-online", joinCodeId));
       }
       else{
         await updateDoc(docRef, {
@@ -92,8 +97,7 @@ $("#join").click(async function (e) {
       console.log("No such document!");
     }
     leavOrJoin = false;
-  }
-})
+}
 
 async function join(joincode) {
   options.appid = '96612da98436477eb37a3d018dcdb950';
@@ -177,6 +181,7 @@ function handleUserPublished(user, mediaType) {
 
 function handleUserUnpublished(user) {
   $('#loader1').addClass("loader1");
+  preLeave(joinCode);
   const id = user.uid;
   delete remoteUsers[id];
   $(`#player-wrapper-${id}`).remove();
