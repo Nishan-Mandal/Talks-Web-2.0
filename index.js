@@ -1,13 +1,13 @@
 
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, updateDoc, setDoc, doc, serverTimestamp, arrayUnion, query, where, getDoc, getDocs, deleteDoc, onSnapshot, orderBy } from "firebase/firestore";
+import { getFirestore, collection, updateDoc, setDoc, doc, serverTimestamp, arrayUnion, arrayRemove, query, where, getDoc, getDocs, deleteDoc, onSnapshot, orderBy } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid"
 import { Chatroom } from './chat';
 
-const uid = uuidV4();
-var joinCode;
+const userId = uuidV4();
 var messageDocId;
 var isSearching;
+var userCount = {};
 const firebaseConfig = {
   apiKey: "AIzaSyBkRk5JV-gM016M7kvL9hGzgtmoOgGbwNU",
   authDomain: "globalcalls-b0a61.firebaseapp.com",
@@ -52,14 +52,16 @@ $(() => {
   }
 })
 
-$("#join").click(async function (e) {
-  console.log("join clicked");
+$("#join").click(start);
+
+async function start(e) {
   changeJoinButtonText();
   if (!leavOrJoin) {
-    e.preventDefault();
+    // e.preventDefault();
    $("#join").attr("disabled", true);
     try {
-      joinVideo("Nishan", "Male", ['random', 'random'], "33422");
+      // joinVideo("Nishan", "Male", ['random', 'random'], "33422");
+      tempJoin();
       if (options.token) {
         $("#success-alert-with-token").css("display", "block");
       } else {
@@ -73,30 +75,9 @@ $("#join").click(async function (e) {
   }
   else {
     leave();
-    preLeave(joinCode);
-  }
-})
-
-async function preLeave(joinCodeId){
-  const docRef = doc(db, "videoCallsUsers-online", joinCodeId);
-    const reqSnap = await getDoc(docRef);
-    if (reqSnap.exists()) {
-      var docSearching = reqSnap.data().searching;
-      if(docSearching===true){
-        await deleteDoc(doc(db, "videoCallsUsers-online", joinCodeId));
-      }
-      else{
-        await updateDoc(docRef, {
-          searching: true,
-          messageCode: null,
-          request: [],
-          timeStamp: serverTimestamp()
-        });
-      }
-    } else {
-      console.log("No such document!");
-    }
     leavOrJoin = false;
+    // preLeave(joinCode);
+  }
 }
 
 async function join(joincode) {
@@ -122,10 +103,25 @@ async function join(joincode) {
   // publish local tracks to channel
   await client.publish(Object.values(localTracks));
   console.log("publish success");
+  loaderStop();
+  $("#join").attr("disabled", false);
 }
+
+
 
 async function leave() {
   $('#loader1').removeClass("loader1");
+
+  const docRef = doc(db, "videoCallsUsers-online", "Online-Users");
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    if(docSnap.data().roomId[0] === messageDocId){
+       updateDoc(docRef, {
+        roomId: arrayRemove(messageDocId)
+      });
+    }    
+  }
+
   for (var trackName in localTracks) {
     var track = localTracks[trackName];
     if (track) {
@@ -181,7 +177,8 @@ function handleUserPublished(user, mediaType) {
 
 function handleUserUnpublished(user) {
   $('#loader1').addClass("loader1");
-  preLeave(joinCode);
+  leave();
+  start();
   const id = user.uid;
   delete remoteUsers[id];
   $(`#player-wrapper-${id}`).remove();
@@ -199,113 +196,8 @@ function changeJoinButtonText() {
     }  
 }
 
-async function joinVideo(displayName, usersGender, searchForWhome) {
-  loaderStart();
-  var tempJoinCode;
-  const q = query(collection(db, "videoCallsUsers-online"), where("searchForWhome", "array-contains", "random"), where("searching", "==", true), orderBy("timeStamp","desc"));
-
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    joinCode = doc.data().joinCode;
-    tempJoinCode=joinCode;
-  })
-  if (tempJoinCode != undefined) {
-    const docRef = doc(db, "videoCallsUsers-online", joinCode);
-    await updateDoc(docRef, {
-      request: arrayUnion(uid)
-    });
-
-    var indexZero;
-    const req = doc(db, "videoCallsUsers-online", joinCode);
-    const reqSnap = await getDoc(req);
-    if (reqSnap.exists()) {
-      indexZero = reqSnap.data().request[0];
-    } else {
-      console.log("No such document!");
-    }
-
-    if (indexZero === uid) {
-      messageDocId = uuidV4();
-      await updateDoc(docRef, {
-        messageCode: messageDocId,
-        searching: false
-      });
-      await join(joinCode);
-
-      const message = doc(db, "videoCallsMessages", messageDocId);
-      await setDoc(message, {
-        userName1: displayName,
-        userName2: " ",
-        userEmail1: null,
-        userEmail2: null,
-        someOneEndsCall: false
-      });
-
-      const unsub = onSnapshot(doc(db, "videoCallsUsers-online", joinCode), (doc) => {
-        isSearching = doc.data().searching;
-        if(doc.data().messageCode!=null){
-          messageDocId = doc.data().messageCode;
-          const chatRoom = new Chatroom(db, messageDocId, uid);
-          chatRoom.getChats(data => {
-            chatRoom.render(data);
-          });
-        }
-      });
-
-      const chatInit = doc(collection(db, "videoCallsMessages", messageDocId, "chats"));
-      await setDoc(chatInit, {
-        uid: uid,
-        text: "",
-        timestamp: serverTimestamp()
-      });
-
-      const chatRoom = new Chatroom(db, messageDocId, uid);
-      chatRoom.getChats(data => {
-        chatRoom.render(data);
-      });
-
-
-    }
-    else {
-      return joinVideo(displayName, usersGender, searchForWhome, joinCode);
-    }
-  }
-  else {
-    const ref = doc(collection(db, "videoCallsUsers-online"));
-    joinCode=ref.id;
-    await setDoc(ref, {
-      name: displayName,
-      joinCode: ref.id,
-      messageCode: null,
-      gender: usersGender,
-      searchForWhome: searchForWhome,
-      timeStamp: serverTimestamp(),
-      searching: true,
-      uid:uid
-    });
-    await join(ref.id);
-    
-    const unsub = onSnapshot(doc(db, "videoCallsUsers-online", ref.id), (doc) => {
-      isSearching = doc.data().searching;
-      if(doc.data().messageCode!=null){
-        messageDocId = doc.data().messageCode;
-        const chatRoom = new Chatroom(db, messageDocId, uid);
-        chatRoom.getChats(data => {
-          chatRoom.render(data);
-        });
-      }
-    });
-  }
-  loaderStop();
-  $("#join").attr("disabled", false);
-}
 $("#send").click(async function (e) {
-  let get = document.getElementById('text-box');
-  if(!isSearching && get.value.trim().length!=0){
-    const chatRoom = new Chatroom(db, messageDocId, uid);
-    chatRoom.sendChat(get.value);
-    get.value="";
-  }
+  onLeaveOrCloseWindow(userId,messageDocId);
 });
 
 var input = document.getElementById("text-box");
@@ -313,7 +205,7 @@ input.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
     let get = document.getElementById('text-box');
     if(!isSearching && get.value.trim().length!=0){
-      const chatRoom = new Chatroom(db, messageDocId, uid);
+      const chatRoom = new Chatroom(db, messageDocId, userId);
       chatRoom.sendChat(get.value);
       get.value="";
     }
@@ -329,40 +221,88 @@ function loaderStop(){
   $('#loader2').removeClass("loader2");
 }
 
+async function onLeaveOrCloseWindow(queueId,msgId){
+  const docRef = doc(db, "videoCallsUsers-online", "Online-Users");
+  const docSnap =  await getDoc(docRef);
+  if (docSnap.exists()) {
+     updateDoc(docRef, {
+      queue: arrayRemove(queueId),
+      roomId: arrayRemove(msgId)
+    });  
+  }
+}
+
+async function tempJoin(){
+  loaderStart();
+  const docRef = doc(db, "videoCallsUsers-online", "Online-Users");
+  await updateDoc(docRef,{
+    queue: arrayUnion(userId),
+  });
+
+  const  unsub =  onSnapshot(doc(db, "videoCallsUsers-online", "Online-Users"), async (doc) => {
+     var idxZero = doc.data().queue[0];
+     var idxOne = doc.data().queue[1];
+     var roomId = doc.data().roomId[0];
+     if(idxZero === userId){
+       if(roomId ===  undefined){
+        unsub();
+        var uniqueId = uuidV4();
+        messageDocId = uniqueId;
+        await updateDoc(docRef, {
+          roomId: arrayUnion(uniqueId),
+          queue: arrayRemove(userId)
+        });   
+        await join(uniqueId);
+       }
+       else{
+        unsub();
+        messageDocId = roomId;
+        await updateDoc(docRef, {
+          roomId: arrayRemove(roomId),
+          queue: arrayRemove(userId)
+        });  
+        await join(roomId);
+        if(getUserCount() === 0){
+          await updateDoc(docRef, {
+            roomId: arrayUnion(messageDocId)
+          });
+        }
+       }
+     }
+     else if(idxOne === userId){
+      setTimeout(async function(){
+        await updateDoc(docRef, {
+          queue: arrayRemove(idxZero)
+        });  
+      }, 3000); 
+     }
+
+     const chatRoom = new Chatroom(db, messageDocId, userId);
+     chatRoom.getChats(data => {
+       chatRoom.render(data);
+     });
+
+  });
+}
+
 window.onbeforeunload = function(){
-  onLeaveOrCloseWindow(joinCode);
-  // localStorage.setItem("joinCode", joinCode);
-  return "Leave?";
+  sessionStorage.setItem("msgId", messageDocId);
+  sessionStorage.setItem("queueId", userId);
+  onLeaveOrCloseWindow(userId,messageDocId);
+  return ""; 
 };
 
-// window.onunload = function() {
-//   onLeaveOrCloseWindow(joinCode);
-// }
-// window.onload = function() {
-//   var flagJoinCode = localStorage.getItem("joinCode");
-//   if (flagJoinCode != undefined){
-//     onLeaveOrCloseWindow(flagJoinCode);
-//   }
-// }
+window.onload = function() {
+  var msgId = sessionStorage.getItem("msgId");
+  var queueId = sessionStorage.getItem("queueId");
+  sessionStorage.removeItem("msgId");
+  sessionStorage.removeItem("queueId");
+  onLeaveOrCloseWindow(queueId,msgId);
+}
+window.onunload = function() {
+  onLeaveOrCloseWindow(userId,messageDocId);
+}
 
-async function onLeaveOrCloseWindow(docId){
-  const docRef = doc(db, "videoCallsUsers-online", docId);
-  const reqSnap = await getDoc(docRef);
-  if (reqSnap.exists()) {
-    var docSearching = reqSnap.data().searching;
-    if(docSearching===true){
-      leave();
-      await deleteDoc(doc(db, "videoCallsUsers-online", docId));
-    }
-    else{
-      await updateDoc(docRef, {
-        searching: true,
-        messageCode: null,
-        request: []
-      });
-    }
-  } else {
-    console.log("No such document!");
-  }
-  leavOrJoin = false;
+function getUserCount(){
+  return Object.keys(remoteUsers).length;
 }
