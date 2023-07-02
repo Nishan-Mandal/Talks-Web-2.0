@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="chatting.css">
+</head>
+<body>
+    <div id="banner">
+        <div id="logo">
+          <img src="assets/appIcon.png" alt="AppIcon" width="20%">
+          Talks
+        </div>
+    
+          <a href="https://play.google.com/store/apps/details?id=com.ultimaterocker.talks" target="_blank">
+            <img style="padding-left: 85%;" src="assets/GooglePlay.png" alt="GooglePlay" width="15%">
+          </a>
+      </div>
+      <div id="chats-view">
+        <ul style="width: 100%; list-style-type: none;" id="message-list" class="chat-list list-group"></ul>
+      </div>
+      <div id="typing-view">
+        <button id="join-chatting" type="button" class="btn btn-primary" value="Join">Join</button>
+        <input type="text" id="text-box" placeholder="Type something.." autocomplete="off">
+        <button id="send" type="button" class="btn btn-primary btn-sm">Send</button>
+      </div>
+      <div id="loader1"></div>
+      <h3 id="isConnected">● Connected</h3>
+      <script>
+         localStorage.setItem("choice", "chattingOnly");
+      </script>
+      <script src="./vendor/jquery-3.4.1.min.js"></script>
+      <script src="./vendor/bootstrap.bundle.min.js"></script>
+      <script src="./AgoraRTC_N-4.16.1.js"></script>
+      <script src="./dist/bundle.js"></script>
+</body>
+</html>

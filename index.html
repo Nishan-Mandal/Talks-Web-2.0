@@ -1,35 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Basic Video Call -- Agora</title>
-  <link rel="stylesheet" href="./vendor/bootstrap.min.css">
+  <title>Landing Page</title>
   <link rel="stylesheet" href="./index.css">
 </head>
-<body style="background-color: rgb(221, 219, 219);">
 
-  <div id="banner"> <p id="banner-text"><strong>Talks</strong></p></div>
-  <div id="remote-playerlist"></div>
-  <div id="local-player" class="player"></div>
-  
-  <div id="chatting-view">
-    <ul id="message-list" class="chat-list list-group"></ul>
+<body>
+  <div id="banner">
+    <div id="logo">
+      <img src="assets/appIcon.png" alt="AppIcon" width="20%">
+      Talks
+    </div>
+
+      <a href="https://play.google.com/store/apps/details?id=com.ultimaterocker.talks" target="_blank">
+        <img style="padding-left: 85%;" src="assets/GooglePlay.png" alt="GooglePlay" width="15%">
+      </a>
   </div>
-  <div id="bottom-chatting-view">
-    <button id="join" type="button" class="btn btn-primary" value="Join">Join</button>
-    <input type="text" id="text-box" placeholder="Type something.." autocomplete="off">
-    <button id="send" type="button" class="btn btn-primary btn-sm">Send</button>
+  <div id="base">
+    <h2>Random Chat Rooms Free Online Chat Rooms Without Registration</h2>
+    <div class="container">
+      <h1 style="color: orange;">Welcome!</h1>
+      <h3>Select Your Gender</h3>
+      <form>
+        <label>
+          <input type="radio" name="gender" value="male" checked>
+          Male
+          <input type="radio" name="gender" value="female">
+          Female
+          <input type="radio" name="gender" value="other">
+          Other
+        </label>
+        <button type="button" onclick="startVideo()">Video <img style="padding-left: 2%;" src="assets/anonymous.png" alt="anonymous" width="30"
+            height="30"></button>
+        <button type="button" onclick="startChatting()">Text <img style="padding-left: 2%;" src="assets/anonymous.png" alt="anonymous" width="30"
+            height="30"></button>
+      </form>
+    </div>
+
+
+    <h4 style="text-align: left;">Are you in search of new people? Do you want to make strangers your friends? Visit
+      Talks and meet people online. You will find thousands of boys and girls, men and women that are seeking
+      friendship. Get connected with them and make your life hell of fun.Meet interesting people here that can make your
+      life amazing. Meet new people for free. No registrations, just come up with an interesting nickname and hit the
+      'Start Chatting' button.</h4>
+    <!-- <video id="video-player" src="https://firebasestorage.googleapis.com/v0/b/talks-612f0.appspot.com/o/%F0%9F%91%87%20DOWNLOAD%20NOW%20%F0%9F%91%87%20Anonymous%20Live%20Video%20Chat%20with%20Random%20Strangers.%F0%9F%91%87%20Make%20secret%20friends.%23shorts.mp4?alt=media&token=9351516c-d311-4389-acd6-3d7694e5b694" controls  loop muted preload="auto">
+      Your browser does not support the video tag.
+    </video> -->
+    <a href="https://play.google.com/store/apps/details?id=com.ultimaterocker.talks" target="_blank">
+      <img src="assets/GooglePlay.png" alt="anonymous" width="30%" height=auto>
+    </a>
+    <h2 id="special-features-title">Special Features We Provide You</h2>
+    <h3 class="feature-headings">No login or sign up to chat with strangers</h3>
+    <h5 class="feature-body">Chat with strangers without login or sign up. Most fitting web chat app for you to chat to
+      unknown people. We allow you to start chatting without login or sign up because we don’t wanna be a Login Daddy.
+      Which means you will not be required to give your number or email or your payment information such as credit card
+      to start chatting. Its literally a free stranger chat service without registration.</h5>
+    <h3 class="feature-headings">Mobile-friendly stranger chat</h3>
+    <h5 class="feature-body">Our application is mobile friendly and can be accessed via smaller devices like iphone,
+      windows and android phones from even their browsers, which makes it very easy for you to stay connected with your
+      friends.</h5>
+    <h3 class="feature-headings">Voice and Video Calling</h3>
+    <h5 class="feature-body">You can use our chat platform to conduct high quality voice and video calls with your
+      friends with no costs. Voice and video calls quality are on par with any other platforms that provide services as
+      such.</h5>
   </div>
-  <div id="loader1"></div>
-  <div id="loader2"></div>
 
 
-  <script src="./vendor/jquery-3.4.1.min.js"></script>
-  <script src="./vendor/bootstrap.bundle.min.js"></script>
-  <script src="./AgoraRTC_N-4.16.1.js"></script>
-  <script src="./dist/bundle.js"></script>
-  
+  <script>
+    function startVideo() {
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+      localStorage.setItem('gender', gender);
+      window.location.href = "main.html";
+      localStorage.setItem('choice', "videoCall");
+    }
+    function startChatting() {
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+      localStorage.setItem('gender', gender);
+      window.location.href = "chatting.html";
+    }
+  </script>
 </body>
+
 </html>

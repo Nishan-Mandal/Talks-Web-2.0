@@ -1,0 +1,378 @@
+@media(min-width: 800px){
+  #banner {
+    position: absolute;
+    top: 1%;
+    left: 1vh;
+    background-color: rgb(45, 202, 207);
+    height: 10%;
+    width: 68.3%;
+    border-radius: 15px;
+  }
+  
+  #banner-text {
+    font-size: 2.9em;
+    color: black;
+    padding-left: 25px;
+    padding-bottom: 35px;
+  }
+  
+  #local-player {
+    position: absolute;
+    bottom: 12vh;
+    right: 31.7vw;
+    height: 23%;
+    width: 19%;
+    background-color: rgb(221, 219, 220);
+    border-radius: 15px;
+    overflow: hidden;
+    perspective: 1px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center */
+  }
+  
+  #remote-playerlist {
+    position: absolute;
+    top: 12vh;
+    margin-left: 0.6%;
+    margin-right: 0.6%;
+    height: 77vh;
+    width: 68.3vw;
+    background-color: white;
+    border-radius: 15px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center */
+  }
+
+  #chatting-view {
+    position: absolute;
+    top: 1vh;
+    bottom: 1vh;
+    margin-left: 69.4%;
+    height: 85%;
+    width: 29.9%;
+    padding-left: 1vh;
+    overflow-x:hidden; 
+    overflow-y:auto; 
+    background-color: white;
+    border-radius: 15px 15px 0px 0px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  #bottom-chatting-view {
+    position: absolute;
+    bottom: 1vh;
+    margin-left: 69.4%;
+    padding-top: 1%;
+    height: 13%;
+    width: 29.9%;
+    background-color: white;
+    border-radius: 0px 0px 15px 15px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  #text-box {
+    height: 5.1vw;
+    width: 60%;
+    border-radius: 15px;
+    background-color: rgb(221, 219, 220);
+    
+  }
+
+  #text-box:hover {
+    background-color: rgb(241, 241, 241);
+  }
+  
+  #join {
+    background-color: rgb(45, 202, 207); /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 1vw;
+    border-radius: 15px;
+    height: 5.1vw;
+    width: 5.1vw;
+  }
+  
+  #send {
+    background-color: rgb(45, 202, 207); 
+    border: none;
+    color: white;
+    padding: 22px 19px;
+    text-align: center;
+    font-size: 1vw;
+    height: 5.1vw;
+    width: 5.1vw;
+    border-radius: 15px;
+  }
+
+  #join:hover {
+    background-color: rgb(15, 142, 146); 
+  }
+
+  #send:hover {
+    background-color: rgb(15, 142, 146); 
+  }
+  
+  /* speech bubble 13 */
+ /* .sb13:before {
+    content: "";
+    max-width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 15px solid rgb(45, 202, 207);
+    border-right: 15px solid transparent;
+    border-top: 15px solid rgb(45, 202, 207);
+    border-bottom: 15px solid transparent;
+    right: -16px;
+    top: 0px;
+  } 
+   */
+  /* speech bubble 14 */
+  /* .sb14:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 15px solid transparent;
+    border-right: 15px solid #01a79e;
+    border-top: 15px solid #01a79e;
+    border-bottom: 15px solid transparent;
+    left: -16px;
+    top: 0px;
+  } */
+  
+  .loader1 {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 40%;
+    left: 30%;
+  }
+  
+  .loader2 {
+    border: 7px solid #f3f3f3; /* Light grey */
+    border-top: 7px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 72%;
+    left: 57%;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .hide-loader {
+    display: none;
+  }
+  
+  .tips {
+    font-size: 12px;
+    margin-bottom: 2px;
+    color: gray;
+  }
+  
+  .join-info-text {
+    margin-bottom: 2px;
+  }
+  
+  input {
+    width: 100%;
+    margin-bottom: 2px;
+  }
+  
+  .player {
+    height: 77vh;
+  }
+  #success-alert, #success-alert-with-token {
+    display: none;
+  }
+  
+  @media (max-width: 640px) {
+    .player {
+      height: 77vh;
+    }
+  }
+}
+
+
+@media (max-width: 800px) and (min-width: 300px){
+  #banner {
+    position: absolute;
+    top: 1%;
+    margin-left: 2.2%;
+    margin-right: 2.2%;
+    background-color: rgb(45, 202, 207);
+    height: 6%;
+    width: 96%;
+    border-radius: 10px;
+  }
+
+  #banner-text {
+    font-size: 2em;
+    color: black;
+    padding-left: 20px;
+  }
+
+  #local-player {
+    position: absolute;
+    bottom: 33%;
+    right: 3vh;
+    height: 18%;
+    width: 29%;
+    background-color: rgb(221, 219, 220);
+    border-radius: 15px;
+    overflow: hidden;
+    /* display: flex;
+    align-items: center;
+    justify-content: center */
+  }
+  
+  #remote-playerlist {
+    position: absolute;
+    bottom: 32%;
+    margin-left: 2.2%;
+    margin-right: 2.2%;
+    height: 55.5vh;
+    width: 96vw;
+    background-color: white;
+    border-radius: 15px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center */
+  }
+
+  #chatting-view {
+    position: absolute;
+    bottom: 11%;
+    margin-left: 2.2%;
+    margin-right: 2.2%;
+    height: 20%;
+    width: 96%;
+    overflow-x:hidden; 
+    overflow-y:auto; 
+    background-color: white;
+    border-radius: 15px 15px 0px 0px ;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  #bottom-chatting-view {
+    position: absolute;
+    bottom: 1%;
+    height: 10%;
+    margin-left: 2.2%;
+    margin-right: 2.2%;
+    width: 96%;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 1vh;
+    background-color: white;
+    border-radius: 0px 0px 15px 15px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  #join {
+    background-color: rgb(45, 202, 207); /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 15px;
+    height: 85%;
+    width: 15%;
+  }
+  
+  #send {
+    background-color: rgb(45, 202, 207); /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    height: 85%;
+    width: 15%;
+    border-radius: 15px;
+  }
+
+  #text-box {
+    max-height: 85%;
+    width: 65%;
+    left: 20%;
+    border-radius: 15px;
+    background-color: rgb(221, 219, 219);
+  }
+
+  /* speech bubble 13 */
+  /* .sb13:before {
+    content: "";
+    position: absolute;
+    border-left: 2px solid rgb(45, 202, 207);
+    border-right: 15px solid transparent;
+    border-top: 15px solid rgb(45, 202, 207);
+    border-bottom: 15px solid transparent;
+    right: -16px;
+    top: 0px;
+  } */
+  
+  /* speech bubble 14 */
+  /* .sb14:before {
+    content: "";
+    position: absolute;
+    border-left: 15px solid transparent;
+    border-right: 2px solid #01a79e;
+    border-top: 15px solid #01a79e;
+    border-bottom: 15px solid transparent;
+    left: -16px;
+    top: 0px;
+  } */
+  
+  .loader1 {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 35%;
+    right: 40%;
+  }
+  
+  .loader2 {
+    border: 7px solid #f3f3f3; /* Light grey */
+    border-top: 7px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 55%;
+    right: 15%;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .hide-loader {
+    display: none;
+  }
+}
+
